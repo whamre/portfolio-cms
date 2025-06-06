@@ -1,0 +1,133 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/images"
+public_folder: "/src/images"
+
+collections:
+  - name: "settings"
+    label: "Settings"
+    files:
+      - name: "hero"
+        label: "Hero Section"
+        file: "content/hero.json"
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Introduction", name: "intro", widget: "text" }
+
+      - name: "about"
+        label: "About Section"
+        file: "content/about.json"
+        fields:
+          - { label: "Profile Image", name: "image", widget: "image" }
+          - { label: "Bio", name: "bio", widget: "text" }
+          - { label: "Background", name: "background", widget: "text" }
+
+      - name: "contact"
+        label: "Contact Information"
+        file: "content/contact.json"
+        fields:
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Phone", name: "phone", widget: "string", required: false }
+          - {
+              label: "Location",
+              name: "location",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "LinkedIn",
+              name: "linkedin",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "GitHub",
+              name: "github",
+              widget: "string",
+              required: false,
+            }
+          - {
+              label: "Twitter",
+              name: "twitter",
+              widget: "string",
+              required: false,
+            }
+
+  - name: "skills"
+    label: "Skills"
+    folder: "content/skills"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - {
+          label: "Icon",
+          name: "icon",
+          widget: "string",
+          hint: "Font Awesome icon class (e.g., fab fa-js)",
+        }
+      - {
+          label: "Level",
+          name: "level",
+          widget: "number",
+          min: 0,
+          max: 100,
+          hint: "Skill level percentage",
+        }
+      - {
+          label: "Category",
+          name: "category",
+          widget: "select",
+          options: ["Frontend", "Backend", "Database", "Tools", "Other"],
+        }
+
+  - name: "projects"
+    label: "Projects"
+    folder: "content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Technologies", name: "technologies", widget: "list" }
+      - {
+          label: "Live URL",
+          name: "liveUrl",
+          widget: "string",
+          required: false,
+        }
+      - {
+          label: "GitHub URL",
+          name: "githubUrl",
+          widget: "string",
+          required: false,
+        }
+      - {
+          label: "Featured",
+          name: "featured",
+          widget: "boolean",
+          default: false,
+        }
+      - { label: "Order", name: "order", widget: "number", default: 0 }
+
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - {
+          label: "Featured Image",
+          name: "image",
+          widget: "image",
+          required: false,
+        }
+      - { label: "Excerpt", name: "excerpt", widget: "text" }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Tags", name: "tags", widget: "list", required: false }

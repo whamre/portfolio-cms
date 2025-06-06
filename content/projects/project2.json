@@ -1,0 +1,10 @@
+{
+  "title": "Project Title 2",
+  "description": "Another project description. Highlight different technologies and achievements from your first project.",
+  "image": "/src/images/project2.jpg",
+  "technologies": ["Technology A", "Technology B", "Technology C"],
+  "liveUrl": "https://your-second-project.com",
+  "githubUrl": "https://github.com/yourusername/second-project",
+  "featured": false,
+  "order": 2
+} 

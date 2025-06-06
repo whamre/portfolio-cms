@@ -1,0 +1,10 @@
+{
+  "title": "Project Title 1",
+  "description": "Brief description of your project. Explain what it does, the problem it solves, and key features.",
+  "image": "/src/images/project1.jpg",
+  "technologies": ["Technology 1", "Technology 2", "Technology 3"],
+  "liveUrl": "https://your-project-url.com",
+  "githubUrl": "https://github.com/yourusername/project-repo",
+  "featured": true,
+  "order": 1
+} 

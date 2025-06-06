@@ -1,0 +1,8 @@
+{
+  "title": "Your First Blog Post Title",
+  "date": "2024-01-15T10:00:00Z",
+  "image": "/src/images/blog1.jpg",
+  "excerpt": "A brief summary of your blog post. This appears on the main page and should entice readers to click through.",
+  "body": "The full content of your blog post goes here. You can write about technology, your projects, tutorials, or your development journey.",
+  "tags": ["Tag1", "Tag2", "Tag3"]
+} 
