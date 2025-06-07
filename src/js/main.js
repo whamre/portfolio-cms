@@ -68,14 +68,11 @@ async function loadAboutContent() {
 async function loadSkills() {
     try {
         const skillsContainer = document.getElementById('skills-container');
-        const skillFiles = await getContentFiles('skills');
+        const skills = await getContentFiles('skills');
         
         skillsContainer.innerHTML = '';
         
-        for (const file of skillFiles) {
-            const response = await fetch(getContentPath(`content/skills/${file}`));
-            const skill = await response.json();
-            
+        for (const skill of skills) {
             const skillCard = createSkillCard(skill);
             skillsContainer.appendChild(skillCard);
         }
@@ -105,16 +102,9 @@ function createSkillCard(skill) {
 async function loadProjects() {
     try {
         const projectsContainer = document.getElementById('projects-container');
-        const projectFiles = await getContentFiles('projects');
+        const projects = await getContentFiles('projects');
         
         projectsContainer.innerHTML = '';
-        
-        const projects = [];
-        for (const file of projectFiles) {
-            const response = await fetch(getContentPath(`content/projects/${file}`));
-            const project = await response.json();
-            projects.push(project);
-        }
         
         // Sort projects by order
         projects.sort((a, b) => (b.order || 0) - (a.order || 0));
@@ -166,16 +156,9 @@ function createProjectCard(project) {
 async function loadBlogPosts() {
     try {
         const blogContainer = document.getElementById('blog-container');
-        const blogFiles = await getContentFiles('blog');
+        const posts = await getContentFiles('blog');
         
         blogContainer.innerHTML = '';
-        
-        const posts = [];
-        for (const file of blogFiles) {
-            const response = await fetch(getContentPath(`content/blog/${file}`));
-            const post = await response.json();
-            posts.push(post);
-        }
         
         // Sort posts by date (newest first)
         posts.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -245,10 +228,16 @@ async function loadContactInfo() {
     }
 }
 
-// Simple function - just load the existing JavaScript skill 
+// WordPress-like API function - fully dynamic content loading
 async function getContentFiles(folder) {
-    if (folder === 'skills') {
-        return ['javascript.json']; // We know this exists from CMS
+    try {
+        const response = await fetch(`/.netlify/functions/get-content?folder=${folder}`);
+        if (response.ok) {
+            const data = await response.json();
+            return data.files || [];
+        }
+    } catch (error) {
+        console.error(`Error loading ${folder} content:`, error);
     }
     return [];
 }
