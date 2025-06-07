@@ -1,6 +1,6 @@
 {
   "name": "html",
-  "icon": "fa-html5",
+  "icon": "fas fa-html5",
   "level": 3,
   "category": "Frontend"
 }
