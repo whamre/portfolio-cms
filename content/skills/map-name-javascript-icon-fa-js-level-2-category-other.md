@@ -1,0 +1,6 @@
+---
+name: JavaScript
+icon: fa-js
+level: 2
+category: Other
+---
