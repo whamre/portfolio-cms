@@ -245,78 +245,59 @@ async function loadContactInfo() {
     }
 }
 
-// Helper function to get content files (dynamically checks for existing files)
+// Helper function to get content files (checks for files without spam)
 async function getContentFiles(folder) {
     try {
-        // For skills, check for common skill files that might exist
+        // For skills, check only for files that are likely to exist
         if (folder === 'skills') {
-            const commonSkills = [
+            const possibleSkills = [
                 'javascript.json', 'typescript.json', 'react.json', 'vue.json', 'angular.json',
-                'nodejs.json', 'python.json', 'java.json', 'csharp.json', 'php.json',
-                'html.json', 'css.json', 'sass.json', 'bootstrap.json', 'tailwind.json',
-                'mysql.json', 'postgresql.json', 'mongodb.json', 'firebase.json',
-                'git.json', 'docker.json', 'aws.json', 'linux.json'
+                'html.json', 'css.json', 'nodejs.json', 'python.json'
             ];
             
             const existingFiles = [];
-            for (const file of commonSkills) {
+            for (const file of possibleSkills) {
                 try {
                     const response = await fetch(getContentPath(`content/skills/${file}`));
                     if (response.ok) {
                         existingFiles.push(file);
                     }
                 } catch (e) {
-                    // File doesn't exist, skip it
+                    // File doesn't exist, skip silently
                 }
             }
             return existingFiles;
         }
         
-        // For projects, check for numbered project files and common patterns
+        // For projects, check for likely project files only
         if (folder === 'projects') {
             const projectFiles = [];
-            for (let i = 1; i <= 10; i++) {
+            // Check for first 3 numbered projects only
+            for (let i = 1; i <= 3; i++) {
                 try {
                     const response = await fetch(getContentPath(`content/projects/project${i}.json`));
                     if (response.ok) {
                         projectFiles.push(`project${i}.json`);
                     }
                 } catch (e) {
-                    // File doesn't exist, skip it
+                    // File doesn't exist, skip silently
                 }
             }
-            
-            // Also check for custom project files (common naming patterns)
-            const customProjects = [
-                'portfolio-website.json', 'e-commerce-site.json', 'blog-app.json',
-                'todo-app.json', 'weather-app.json', 'chat-app.json'
-            ];
-            
-            for (const file of customProjects) {
-                try {
-                    const response = await fetch(getContentPath(`content/projects/${file}`));
-                    if (response.ok && !projectFiles.includes(file)) {
-                        projectFiles.push(file);
-                    }
-                } catch (e) {
-                    // File doesn't exist, skip it
-                }
-            }
-            
             return projectFiles;
         }
         
         // For blog posts
         if (folder === 'blog') {
             const blogFiles = [];
-            for (let i = 1; i <= 20; i++) {
+            // Check for first 3 blog posts only
+            for (let i = 1; i <= 3; i++) {
                 try {
                     const response = await fetch(getContentPath(`content/blog/post${i}.json`));
                     if (response.ok) {
                         blogFiles.push(`post${i}.json`);
                     }
                 } catch (e) {
-                    // File doesn't exist, skip it
+                    // File doesn't exist, skip silently
                 }
             }
             return blogFiles;
