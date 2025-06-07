@@ -1,15 +1,12 @@
 /**
  * Netlify Function: Dynamic Content API
  * 
- * Provides REST API for fetching CMS content dynamically
+ * Fetches content directly from GitHub repository
  * Endpoint: /.netlify/functions/get-content?folder=skills
  * 
  * @param {string} folder - Content folder (skills, projects, blog)
  * @returns {Object} { files: [...], count: number }
  */
-
-const fs = require('fs');
-const path = require('path');
 
 exports.handler = async (event, context) => {
   const { folder } = event.queryStringParameters || {};
@@ -26,58 +23,49 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // Try multiple possible paths for Netlify environment
-    let contentPath;
-    const possiblePaths = [
-      path.join(process.cwd(), 'content', folder),           // Original
-      path.join(__dirname, '../../content', folder),        // Relative to function
-      path.join('/opt/build/repo/content', folder),         // Netlify build path
-      path.join(process.env.LAMBDA_TASK_ROOT || '', 'content', folder), // Lambda root
-    ];
+    // GitHub API to fetch content files
+    const githubUrl = `https://api.github.com/repos/whamre/portfolio-cms/contents/content/${folder}`;
     
-    // Find the first path that exists
-    contentPath = possiblePaths.find(p => fs.existsSync(p));
+    const response = await fetch(githubUrl);
     
-    if (!contentPath) {
-      console.log('Tried paths:', possiblePaths);
-      console.log('Working directory:', process.cwd());
-      console.log('__dirname:', __dirname);
-      console.log('Environment:', process.env.NETLIFY ? 'Netlify' : 'Local');
+    if (!response.ok) {
+      if (response.status === 404) {
+        return {
+          statusCode: 200,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ files: [], count: 0 })
+        };
+      }
+      throw new Error(`GitHub API error: ${response.status}`);
     }
     
-    // Return empty array if directory doesn't exist or path not found
-    if (!contentPath || !fs.existsSync(contentPath)) {
-      return {
-        statusCode: 200,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 
-          files: [], 
-          count: 0,
-          debug: contentPath ? `Path ${contentPath} not found` : 'No valid path found'
-        })
-      };
-    }
-
-    // Read all JSON files and parse content
-    const files = fs.readdirSync(contentPath)
-      .filter(file => file.endsWith('.json'))
-      .map(file => {
+    const githubFiles = await response.json();
+    
+    // Filter for JSON files and fetch their content
+    const jsonFiles = githubFiles.filter(file => 
+      file.name.endsWith('.json') && file.name !== '.gitkeep'
+    );
+    
+    const files = await Promise.all(
+      jsonFiles.map(async (file) => {
         try {
-          const filePath = path.join(contentPath, file);
-          const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+          const contentResponse = await fetch(file.download_url);
+          const content = await contentResponse.json();
           return {
-            filename: file,
+            filename: file.name,
             ...content
           };
         } catch (e) {
-          console.error(`Error reading ${file}:`, e);
+          console.error(`Error reading ${file.name}:`, e);
           return null;
         }
       })
-      .filter(Boolean);
+    );
+
+    const validFiles = files.filter(Boolean);
 
     return {
       statusCode: 200,
@@ -86,8 +74,8 @@ exports.handler = async (event, context) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ 
-        files,
-        count: files.length 
+        files: validFiles,
+        count: validFiles.length 
       })
     };
 
@@ -99,7 +87,7 @@ exports.handler = async (event, context) => {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ error: 'Failed to read content' })
+      body: JSON.stringify({ error: 'Failed to read content from GitHub' })
     };
   }
 }; 
