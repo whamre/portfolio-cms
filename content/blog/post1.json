@@ -1,8 +1,12 @@
 {
-  "title": "Your First Blog Post Title",
+  "title": "Lorem ipsum",
   "date": "2024-01-15T10:00:00Z",
-  "image": "/src/images/blog1.jpg",
-  "excerpt": "A brief summary of your blog post. This appears on the main page and should entice readers to click through.",
-  "body": "The full content of your blog post goes here. You can write about technology, your projects, tutorials, or your development journey.",
-  "tags": ["Tag1", "Tag2", "Tag3"]
-} 
+  "image": "https://media.istockphoto.com/id/185313478/photo/cmyk-color-guide-and-lorem-ipsum-text.jpg?s=2048x2048&w=is&k=20&c=tiJmgMde1Dmly2JE25QcIhaYGwmy79ydzEQWrHa4GYE=",
+  "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+  "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+  "tags": [
+    "Tag1",
+    "Tag2",
+    "Tag3"
+  ]
+}
