@@ -26,17 +26,38 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    const contentPath = path.join(process.cwd(), 'content', folder);
+    // Try multiple possible paths for Netlify environment
+    let contentPath;
+    const possiblePaths = [
+      path.join(process.cwd(), 'content', folder),           // Original
+      path.join(__dirname, '../../content', folder),        // Relative to function
+      path.join('/opt/build/repo/content', folder),         // Netlify build path
+      path.join(process.env.LAMBDA_TASK_ROOT || '', 'content', folder), // Lambda root
+    ];
     
-    // Return empty array if directory doesn't exist
-    if (!fs.existsSync(contentPath)) {
+    // Find the first path that exists
+    contentPath = possiblePaths.find(p => fs.existsSync(p));
+    
+    if (!contentPath) {
+      console.log('Tried paths:', possiblePaths);
+      console.log('Working directory:', process.cwd());
+      console.log('__dirname:', __dirname);
+      console.log('Environment:', process.env.NETLIFY ? 'Netlify' : 'Local');
+    }
+    
+    // Return empty array if directory doesn't exist or path not found
+    if (!contentPath || !fs.existsSync(contentPath)) {
       return {
         statusCode: 200,
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ files: [], count: 0 })
+        body: JSON.stringify({ 
+          files: [], 
+          count: 0,
+          debug: contentPath ? `Path ${contentPath} not found` : 'No valid path found'
+        })
       };
     }
 
