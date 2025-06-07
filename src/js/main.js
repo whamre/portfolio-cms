@@ -245,19 +245,87 @@ async function loadContactInfo() {
     }
 }
 
-// Helper function to get content files (simulated for static site)
+// Helper function to get content files (dynamically checks for existing files)
 async function getContentFiles(folder) {
-    // In a real implementation, this would fetch from an API or use a build process
-    // For demonstration, return sample file names
-    switch(folder) {
-        case 'skills':
-            return ['javascript.json', 'react.json', 'typescript.json'];
-        case 'projects':
-            return ['project1.json', 'project2.json'];
-        case 'blog':
-            return ['post1.json'];
-        default:
-            return [];
+    try {
+        // For skills, check for common skill files that might exist
+        if (folder === 'skills') {
+            const commonSkills = [
+                'javascript.json', 'typescript.json', 'react.json', 'vue.json', 'angular.json',
+                'nodejs.json', 'python.json', 'java.json', 'csharp.json', 'php.json',
+                'html.json', 'css.json', 'sass.json', 'bootstrap.json', 'tailwind.json',
+                'mysql.json', 'postgresql.json', 'mongodb.json', 'firebase.json',
+                'git.json', 'docker.json', 'aws.json', 'linux.json'
+            ];
+            
+            const existingFiles = [];
+            for (const file of commonSkills) {
+                try {
+                    const response = await fetch(getContentPath(`content/skills/${file}`));
+                    if (response.ok) {
+                        existingFiles.push(file);
+                    }
+                } catch (e) {
+                    // File doesn't exist, skip it
+                }
+            }
+            return existingFiles;
+        }
+        
+        // For projects, check for numbered project files and common patterns
+        if (folder === 'projects') {
+            const projectFiles = [];
+            for (let i = 1; i <= 10; i++) {
+                try {
+                    const response = await fetch(getContentPath(`content/projects/project${i}.json`));
+                    if (response.ok) {
+                        projectFiles.push(`project${i}.json`);
+                    }
+                } catch (e) {
+                    // File doesn't exist, skip it
+                }
+            }
+            
+            // Also check for custom project files (common naming patterns)
+            const customProjects = [
+                'portfolio-website.json', 'e-commerce-site.json', 'blog-app.json',
+                'todo-app.json', 'weather-app.json', 'chat-app.json'
+            ];
+            
+            for (const file of customProjects) {
+                try {
+                    const response = await fetch(getContentPath(`content/projects/${file}`));
+                    if (response.ok && !projectFiles.includes(file)) {
+                        projectFiles.push(file);
+                    }
+                } catch (e) {
+                    // File doesn't exist, skip it
+                }
+            }
+            
+            return projectFiles;
+        }
+        
+        // For blog posts
+        if (folder === 'blog') {
+            const blogFiles = [];
+            for (let i = 1; i <= 20; i++) {
+                try {
+                    const response = await fetch(getContentPath(`content/blog/post${i}.json`));
+                    if (response.ok) {
+                        blogFiles.push(`post${i}.json`);
+                    }
+                } catch (e) {
+                    // File doesn't exist, skip it
+                }
+            }
+            return blogFiles;
+        }
+        
+        return [];
+    } catch (error) {
+        console.error(`Error getting content files for ${folder}:`, error);
+        return [];
     }
 }
 
