@@ -1,10 +1,13 @@
 {
-  "title": "Project Title 2",
-  "description": "Another project description. Highlight different technologies and achievements from your first project.",
-  "image": "/src/images/project2.jpg",
-  "technologies": ["Technology A", "Technology B", "Technology C"],
-  "liveUrl": "https://your-second-project.com",
+  "title": "Finn riktig ladekabel",
+  "description": "Small project to find the correct charging cable for your electric car. Put in make and model and find corresponding car data and optimal charging cables. ",
+  "image": "https://private-user-images.githubusercontent.com/122488053/452651942-51b143e7-c0ce-4bdb-87d3-7e5438e7e2ea.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDkzMzI3MDAsIm5iZiI6MTc0OTMzMjQwMCwicGF0aCI6Ii8xMjI0ODgwNTMvNDUyNjUxOTQyLTUxYjE0M2U3LWMwY2UtNGJkYi04N2QzLTdlNTQzOGU3ZTJlYS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNjA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDYwN1QyMTQwMDBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03NTdlMWExZWZmMGViYWIzMWI3ZDRmYzEwNjM2NTdmODM4ZjY2NzQyMGFhZjNjNmFjZTgwYmZiNTk2MjBlNWY3JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.08PCO0aNnzKGvtidxdXq3Mr-ULD5Q_wNgGL4Om-Y-Jc",
+  "technologies": [
+    "React",
+    "Supabase"
+  ],
+  "liveUrl": "https://github.com/whamre/finn_riktig_ladekabel_2.0",
   "githubUrl": "https://github.com/yourusername/second-project",
-  "featured": false,
+  "featured": true,
   "order": 2
-} 
+}
