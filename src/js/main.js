@@ -64,7 +64,9 @@ async function loadAboutContent() {
     }
 }
 
-// Load skills
+/**
+ * Load and display skills from CMS
+ */
 async function loadSkills() {
     try {
         const skillsContainer = document.getElementById('skills-container');
@@ -72,10 +74,10 @@ async function loadSkills() {
         
         skillsContainer.innerHTML = '';
         
-        for (const skill of skills) {
+        skills.forEach(skill => {
             const skillCard = createSkillCard(skill);
             skillsContainer.appendChild(skillCard);
-        }
+        });
     } catch (error) {
         console.error('Error loading skills:', error);
     }
@@ -98,7 +100,10 @@ function createSkillCard(skill) {
     return card;
 }
 
-// Load projects
+/**
+ * Load and display projects from CMS
+ * Projects are sorted by order field (highest first)
+ */
 async function loadProjects() {
     try {
         const projectsContainer = document.getElementById('projects-container');
@@ -106,7 +111,7 @@ async function loadProjects() {
         
         projectsContainer.innerHTML = '';
         
-        // Sort projects by order
+        // Sort projects by order field (highest first)
         projects.sort((a, b) => (b.order || 0) - (a.order || 0));
         
         projects.forEach(project => {
@@ -152,7 +157,10 @@ function createProjectCard(project) {
     return card;
 }
 
-// Load blog posts
+/**
+ * Load and display latest blog posts from CMS
+ * Shows newest 3 posts only
+ */
 async function loadBlogPosts() {
     try {
         const blogContainer = document.getElementById('blog-container');
@@ -160,14 +168,14 @@ async function loadBlogPosts() {
         
         blogContainer.innerHTML = '';
         
-        // Sort posts by date (newest first)
-        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-        
-        // Display only the latest 3 posts
-        posts.slice(0, 3).forEach(post => {
-            const blogCard = createBlogCard(post);
-            blogContainer.appendChild(blogCard);
-        });
+        // Sort posts by date (newest first) and show only latest 3
+        posts
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .slice(0, 3)
+            .forEach(post => {
+                const blogCard = createBlogCard(post);
+                blogContainer.appendChild(blogCard);
+            });
     } catch (error) {
         console.error('Error loading blog posts:', error);
     }
@@ -228,7 +236,11 @@ async function loadContactInfo() {
     }
 }
 
-// WordPress-like API function - fully dynamic content loading
+/**
+ * Fetch content from CMS via API
+ * @param {string} folder - Content folder name (skills, projects, blog)
+ * @returns {Array} Array of content objects
+ */
 async function getContentFiles(folder) {
     try {
         const response = await fetch(`/.netlify/functions/get-content?folder=${folder}`);
