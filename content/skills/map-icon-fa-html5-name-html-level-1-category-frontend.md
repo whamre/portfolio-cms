@@ -1,5 +1,5 @@
 ---
-name: HTML
+name: HTM
 icon: fa-html5
 level: 1
 category: Frontend
