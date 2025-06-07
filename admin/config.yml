@@ -60,7 +60,9 @@ collections:
     label: "Skills"
     folder: "content/skills"
     create: true
-    slug: "{{slug}}"
+    format: "json"
+    extension: "json"
+    slug: "{{name}}"
     fields:
       - { label: "Name", name: "name", widget: "string" }
       - {
@@ -88,7 +90,9 @@ collections:
     label: "Projects"
     folder: "content/projects"
     create: true
-    slug: "{{slug}}"
+    format: "json"
+    extension: "json"
+    slug: "{{title}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "text" }
@@ -118,7 +122,9 @@ collections:
     label: "Blog Posts"
     folder: "content/blog"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    format: "json"
+    extension: "json"
+    slug: "{{year}}-{{month}}-{{day}}-{{title}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime" }
@@ -129,5 +135,5 @@ collections:
           required: false,
         }
       - { label: "Excerpt", name: "excerpt", widget: "text" }
-      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Body", name: "body", widget: "text" }
       - { label: "Tags", name: "tags", widget: "list", required: false }
