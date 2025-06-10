@@ -4,11 +4,11 @@ A modern, responsive portfolio website powered by Decap CMS for easy content man
 
 ## Features
 
-- 🎨 Modern, responsive design
-- 📝 Headless CMS for content management
-- 🌙 Dark/Light theme toggle
-- 📱 Mobile-friendly with smooth animations
-- ⚡ Fast loading and optimized performance
+- Modern, responsive design
+- Headless CMS for content management
+- Dark/Light theme toggle
+- Mobile-friendly with smooth animations
+- Fast loading and optimized performance
 
 ## Tech Stack
 
@@ -18,35 +18,54 @@ A modern, responsive portfolio website powered by Decap CMS for easy content man
 - **Deployment**: Netlify
 - **Version Control**: Git
 
-## Quick Start
-
-1. Clone this repository
-2. Deploy to Netlify
-3. Enable Netlify Identity
-4. Access admin panel at `/admin`
-
-## Project Structure
-
-```
-├── index.html          # Main portfolio page
-├── admin/             # CMS admin interface
-├── content/           # JSON content files
-├── src/
-│   ├── css/          # Custom styles
-│   ├── js/           # JavaScript functionality
-│   └── images/       # Image assets
-└── netlify.toml      # Netlify configuration
-```
-
-## Development
-
-The portfolio automatically adapts between development and production environments.
-
 ## CMS Access
 
-After deployment, access the content management system at:
-`https://yoursite.netlify.app/admin`
+Access the content management system at:
+`https://portfolio-cms-wh.netlify.app/admin`
 
-## License
+## How to Use the CMS
 
-MIT License - feel free to use for your own portfolio!
+### Login
+
+1. Navigate to the CMS admin panel using the link above
+2. Authenticate using your configured method (Netlify Identity, GitHub, etc.)
+3. Once logged in, you'll see the Collections sidebar with your content types
+
+#### Settings
+
+- **Site Title**: Main title displayed on your portfolio
+- **Site Description**: Brief description of your portfolio/personal brand
+- **Author Name**: Your full name
+- **Email**: Contact email address
+- **Social Media Links**: URLs to your social profiles (GitHub, LinkedIn, etc.)
+
+#### Skills
+
+- **Name**: Skill name (e.g., "JavaScript", "React")
+- **Icon**: Font Awesome icon class (e.g., `fab fa-js`, `fab fa-react`)
+  - Find icons at: [FontAwesome Icon Search](https://fontawesome.com/search)
+- **Category**: Skill category (Frontend, Backend, Tools, etc.)
+- **Level**: Proficiency level (displayed as progress bar)
+
+#### Projects
+
+- **Title**: Project name
+- **Description**: Brief project description
+- **Long Description**: Detailed project information
+- **Technologies**: Technologies/tools used (array/list)
+- **Live URL**: Link to live project demo
+- **GitHub URL**: Link to project repository
+- **Featured Image**: Main project screenshot/image
+- **Gallery**: Additional project images
+- **Status**: Project status (Completed, In Progress, etc.)
+
+#### Blog Posts
+
+- **Title**: Blog post title
+- **Slug**: URL-friendly version of title
+- **Description**: Brief post summary/excerpt
+- **Body**: Full blog post content (Markdown supported)
+- **Featured Image**: Main post image
+- **Tags**: Post categories/tags
+- **Published**: Publication status
+- **Date**: Publication date
